@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
+
+  <title>Anna dowlin </title>
+  <style>
+    body {
+      text-align: center;
+      background: url(https://hips.hearstapps.com/hmg-prod/images/2023-mclaren-artura-101-1655218102.jpg?crop=0.8889431489846579xw:1xh;center,top&resize=1200:*);
+      background-size: cover;
+      background-position: center;
+      color: green ;
+      font-family: 'Noto Sans JP', sans-serif;;
+
+    }
+    p {
+      font-size: 22px;
+      color: green;
+    }
+    input {
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+    }
+    input[type="submit"] {
+      background:brown;
+      color:Blue;
+    }
+    img {
+      width: 300px;
+      }
+  </style>
+</head>
+<body>
+  <img src="https://c8.alamy.com/comp/2AENYB0/face-expression-of-handsome-man-cheerful-male-emotion-young-guy-cartoon-character-vector-illustration-isolated-on-white-background-2AENYB0.jpg">
+  <p>Hi, this is the owner of the rocket company from New York.</p>
+   <input id="Name" placeholder="Your name">
+  <input id="Email" type="Email" placeholder="Your email">
+  <input id="submit" type="submit">
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCuQlgYJXjocjiUPg6AUrZDmqhL7olV6_M",
+    authDomain: "mike-base.firebaseapp.com",
+    databaseURL: "https://mike-base-default-rtdb.firebaseio.com",
+    projectId: "mike-base",
+    storageBucket: "mike-base.appspot.com",
+    messagingSenderId: "188336170967",
+    appId: "1:188336170967:web:50e063bb37ea64fad40d92"
+  };
+             
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+	const Name = document.querySelector("#Name") 
+	const Email = document.querySelector("#Email")
+ document.querySelector('#submit').addEventListener('click', Submit)
+ 
+  function Submit() {
+  	  const timestamp = buildTimestamp()
+	  
+  	  set(ref(db, timestamp), {
+  		  Name: Name.value,
+  	      email: Email.value,
+  	  });
+
+  	  Name.value = ""
+  	  Email.value = ""
+  	}
+ 
+	function buildTimestamp() {
+		  const now = new Date();
+		  let timestamp = now.getFullYear().toString() + "/";
+		  //const month = now.toLocaleString('default', { month: 'long' });
+
+		  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+		  month = month.toString()
+		  month = addLeadingZero(month)
+		  timestamp += month + "/"; 
+
+		  let date = now.getDate().toString()
+		  date = addLeadingZero(date)
+		  timestamp += date + "/";
+
+		  let hours = now.getHours().toString()
+		  hours = addLeadingZero(hours)
+		  timestamp += hours + ":";
+
+		  let minutes = now.getMinutes().toString()
+		  minutes = addLeadingZero(minutes)
+		  timestamp += minutes + ":";
+
+		  let seconds = now.getSeconds().toString()
+		  seconds = addLeadingZero(seconds)
+		  timestamp += seconds;
+  
+		  return timestamp
+		}
+	
+		function addLeadingZero(units) {
+			if (units.length < 2) {
+				units = "0" + units
+			}
+			return units
+		}
+ 
+ 
+ 
+  
+</script>
+
+
+
+</body>
